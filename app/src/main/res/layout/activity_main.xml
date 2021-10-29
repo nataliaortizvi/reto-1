@@ -6,60 +6,24 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <EditText
-        android:id="@+id/inputNombre"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="56dp"
-        android:ems="10"
-        android:hint="Negocio por defecto"
-        android:inputType="textPersonName"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="302dp" />
-
-    <Button
-        android:id="@+id/btnBoton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Edit"
-        tools:layout_editor_absoluteX="275dp"
-        tools:layout_editor_absoluteY="302dp" />
-
-    <TextView
-        android:id="@+id/textView2"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/fragmentContainer"
         android:layout_width="0dp"
-        android:layout_height="40dp"
-        android:background="#D14242"
-        android:paddingTop="10dp"
-        android:text="        Icesi Sites"
-        android:textAlignment="textStart"
-        android:textColor="#FFFFFF"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/navigationBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/navigationBar"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="camara"
-        tools:layout_editor_absoluteX="156dp"
-        tools:layout_editor_absoluteY="127dp" />
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Ninguna imagen para mostrar"
-        tools:layout_editor_absoluteX="111dp"
-        tools:layout_editor_absoluteY="193dp" />
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="342dp"
-        android:layout_height="76dp"
-        android:text="Inserte aquí una descripción apropiada para su negocio. El autor de las publicaciones que haga en el fragmento “publicaciones” será negocio que se registre en este fragment"
-        android:textAlignment="center"
-        tools:layout_editor_absoluteX="34dp"
-        tools:layout_editor_absoluteY="374dp" />
+        android:background="@color/red"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/home_menu" />
 </androidx.constraintlayout.widget.ConstraintLayout>

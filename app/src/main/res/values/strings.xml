@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">reto 1</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="toolbar">Icesi sites</string>
+    <string name="desciption">Negocio por defecto</string>
+    <string name="descriptionIntro">Inserte aquí una descripción apropiada para su negocio. El autor de las publicaciones que haga en el fragmento “publicaciones” será negocio que se registre en este fragment</string>
+    <string name="nonePublication">Todavía no hay publicaciones</string>
+    <string name="btnPublication">Crea una publicación</string>
+    <string name="titleNombre">Nombre del negocio</string>
+    <string name="titleFoto">Foto del negocio</string>
+    <string name="titleDescrip">Descripción</string>
+    <string name="hintDescrip">Inserte aquí una descripción apropiada para su negocio. El autor de las publicaciones que haga en el fragmento “publicaciones” será negocio que se registre en este fragment</string>
+    <string name="editBtn">Editar</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
