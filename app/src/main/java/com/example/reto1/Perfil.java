@@ -1,14 +1,11 @@
 package com.example.reto1;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+
+import androidx.fragment.app.Fragment;
 
 import com.example.reto1.databinding.FragmentPerfilBinding;
 
@@ -42,22 +39,26 @@ public class Perfil extends Fragment {
         binding.editBtn.setOnClickListener(
                 v-> {
                     state = 1;
-                    Log.e("Estado enviado", ""+state);
-                    Toast.makeText(getActivity(), "Aqui editarias", Toast.LENGTH_SHORT).show();
+
+                    //DISPARO DEL EVENTO QUE SE EJECUTA EN LA CLASE OBSERVADORA
                     listener.onPerfil(state);
                 }
         );
         return view;
     }
 
+    //COSAS DE PATRON OBSERVER (FRAGMENTO OBSERVADO)
+    //1. SUBSCRIPCION
     public void setListener (OnPerfilListener listener) {
-        this.listener =listener;
+        this.listener = listener;
     }
 
+    //2. INTERFAZ
     public interface OnPerfilListener {
         void onPerfil(int change);
     }
 
+    //DESTRUCCION DEL FRAGMENTO
     @Override
     public void onDestroyView() {
         super.onDestroyView();

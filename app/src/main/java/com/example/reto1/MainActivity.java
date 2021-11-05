@@ -1,29 +1,26 @@
 package com.example.reto1;
 
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.Manifest;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-
 import com.example.reto1.databinding.ActivityMainBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class MainActivity extends AppCompatActivity implements Perfil.OnPerfilListener {
+public class MainActivity extends AppCompatActivity implements Perfil.OnPerfilListener, Publicaciones.OnPublicacionesListener,
+newPublicaciones.OnNewPublicacionesListener{
 
     private Perfil perfil;
     private Publicaciones publicaciones;
+    private newPublicaciones newPublicacion;
     private MapsFragment maps;
     private Mapa mapa;
     private editPerfil editPerfils;
-
-    private boolean newPerfil = false;
 
     private ActivityMainBinding binding;
 
@@ -34,34 +31,30 @@ public class MainActivity extends AppCompatActivity implements Perfil.OnPerfilLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         binding = ActivityMainBinding.inflate(getLayoutInflater());
-
         View view = binding.getRoot();
-
         setContentView(view);
 
         navigationBar = binding.navigationBar;
-
-       // navigationBar = findViewById(R.id.navigationBar);
+        //navigationBar = findViewById(R.id.navigationBar);
 
         perfil = Perfil.newInstance();
         publicaciones = Publicaciones.newInstance();
+        newPublicacion = newPublicaciones.newInstance();
         maps = MapsFragment.newInstance();
         mapa = Mapa.newInstance();
         editPerfils = editPerfil.newInstance();
 
         perfil.setListener(this::onPerfil);
+        publicaciones.setListener(this::onPublicaciones);
+        //newPublicacion.setListener(this::onNewPublicaciones);
+        newPublicacion.setListener(publicaciones);
         showFragment(perfil);
 
 
         navigationBar.setOnItemSelectedListener(menuItem -> {
             if (menuItem.getItemId()== R.id.perfilBar) {
                 showFragment(perfil);
-                if (newPerfil) {
-                    showFragment(editPerfils);
-                }
-
             }
             if (menuItem.getItemId()== R.id.publicationBar) {
                 showFragment(publicaciones);
@@ -85,9 +78,22 @@ public class MainActivity extends AppCompatActivity implements Perfil.OnPerfilLi
 
     @Override
     public void onPerfil(int change) {
-        Log.e("Estado recibido", ""+change);
         if (change == 1) {
-            newPerfil = true;
+            showFragment(editPerfils);
         }
+    }
+
+    @Override
+    public void onPublicaciones(int change) {
+        if (change == 1) {
+            showFragment(newPublicacion);
+        }
+    }
+
+
+    @Override
+    public void onNewPublicaciones(Event nuevo) {
+        Log.e(">>>>","te odio:recibiendo mainnnn");
+
     }
 }
