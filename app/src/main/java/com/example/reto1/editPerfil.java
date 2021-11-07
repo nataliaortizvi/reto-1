@@ -5,9 +5,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,12 +20,14 @@ import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult;
 import androidx.annotation.NonNull;
+import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 
 import com.example.reto1.databinding.FragmentEditPerfilBinding;
 import com.google.gson.Gson;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 
 public class editPerfil extends Fragment implements View.OnClickListener {
 
@@ -31,7 +36,8 @@ public class editPerfil extends Fragment implements View.OnClickListener {
     private ActivityResultLauncher <Intent> cameraLauncher;
 
     private int state;
-    private String textEncode;
+    private File file;
+
 
     private OnEditPerfilListener listener = null;
 
@@ -59,26 +65,6 @@ public class editPerfil extends Fragment implements View.OnClickListener {
         binding.btnCamera.setOnClickListener(this);
 
         cameraLauncher = registerForActivityResult(new StartActivityForResult(), this::onCameraResult);
-
-        /*binding.editarBtn.setOnClickListener(
-                v->{
-                    state = 0;
-                    String nomRestaurante = binding.restauranteTxt.getText().toString();
-                    String description = binding.descripTxt.getText().toString();
-
-                    Restaurante elRestaurante = new Restaurante(nomRestaurante,description);
-                    Gson gson = new Gson();
-                    String json = gson.toJson(elRestaurante);
-
-                    //LocalStorage = sharedPreferences
-                    SharedPreferences preferences = this.getActivity().getSharedPreferences("losRestaurantes", Context.MODE_PRIVATE);
-                    preferences.edit().putString("res", json).apply();
-
-
-                    listener.onEditPerfil(state);
-                }
-        );*/
-
 
         return view;
     }
@@ -120,15 +106,21 @@ public class editPerfil extends Fragment implements View.OnClickListener {
 
             case R.id.btnCamera:
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                file = new File (getActivity().getExternalFilesDir(null)+"/photo.png");
+                Uri uri = FileProvider.getUriForFile(getActivity(),getActivity().getPackageName(),file);
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+                //obtener ruta de la carpeta
+                Log.e(">>>>>", file.toString());
                 cameraLauncher.launch(intent);
         }
     }
 
     public void onCameraResult (ActivityResult result) {
         if (result.getResultCode() == Activity.RESULT_OK) {
-            Bitmap bitmap = (Bitmap) result.getData().getExtras().get("data");
+            Bitmap bitmap = BitmapFactory.decodeFile(file.getPath());
+            Bitmap thumbnail =Bitmap.createScaledBitmap(bitmap,bitmap.getWidth()/4, bitmap.getHeight()/4, true);
             //Mostrar la miniatura en botón
-            binding.btnCamera.setImageBitmap(bitmap);
+            binding.btnCamera.setImageBitmap(thumbnail);
 
             //Convertir la imagen en String para guardar en SharedPreferences
             ByteArrayOutputStream baos = new ByteArrayOutputStream();

@@ -54,9 +54,11 @@ public class Perfil extends Fragment {
             binding.descripTxt.setText(elRestaurante.getDescripRestaurante());
         }
 
+        //Recibo la imagen desde el sharedpreference
         SharedPreferences phPreferences = this.getActivity().getSharedPreferences("photoShared", Context.MODE_PRIVATE);
         String thePhoto = phPreferences.getString("imageData", "NO_PHOTO");
 
+        //Si esta la foto que la settee
         if (!thePhoto.equals("NO_PHOTO")) {
             byte[] b = Base64.decode(thePhoto, Base64.DEFAULT);
             Bitmap bitmap = BitmapFactory.decodeByteArray(b, 0, b.length);

@@ -1,7 +1,11 @@
 package com.example.reto1;
 
+import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,6 +51,7 @@ public class Publicaciones extends Fragment implements newPublicaciones.OnNewPub
         binding = FragmentPublicacionesBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
 
+
         Log.e(">>>>","numero de arreglo:  "+ adapter.getItemCount());
 
         if(adapter.getItemCount() == 0){
@@ -70,7 +75,6 @@ public class Publicaciones extends Fragment implements newPublicaciones.OnNewPub
         binding.btnCrearNew.setOnClickListener(
                 v->{
                     state = 1;
-                    //Toast.makeText(getActivity(), "odio esto con mi vida", Toast.LENGTH_SHORT).show();
                     listener.onPublicaciones(state);
                 }
         );
@@ -81,7 +85,6 @@ public class Publicaciones extends Fragment implements newPublicaciones.OnNewPub
                     listener.onPublicaciones(state);
                 }
         );
-
 
         return view;
     }
@@ -96,14 +99,10 @@ public class Publicaciones extends Fragment implements newPublicaciones.OnNewPub
     public void onNewPublicaciones(Event nuevo) {
         Log.e(">>>>","LLEGOOOOOOOO: "+nuevo.getNombreEvent());
         adapter.addEvent(nuevo);
-
-        /*SharedPreferences preferences = this.getActivity().getSharedPreferences("lasPublicaciones", Context.MODE_PRIVATE);
-        String json = preferences.getString("pub", "NO_OBJ");
-        if(!json.equals("NO_OBJ")){
-            Gson gson = new Gson();
-            Event elEvento = gson.fromJson(json, Event.class);
-            adapter.addEvent(elEvento);
-        }*/
+        if (nuevo != null) {
+            state = 3;
+            listener.onPublicaciones(state);
+        }
     }
 
     //2. INTERFAZ

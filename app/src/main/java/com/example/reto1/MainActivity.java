@@ -18,9 +18,7 @@ public class MainActivity extends AppCompatActivity implements Perfil.OnPerfilLi
     private Publicaciones publicaciones;
     private newPublicaciones newPublicacion;
     private MapsFragment maps;
-    private Mapa mapa;
     private editPerfil editPerfils;
-    private MapsActivity mapsActivity;
 
     private ActivityMainBinding binding;
 
@@ -42,8 +40,6 @@ public class MainActivity extends AppCompatActivity implements Perfil.OnPerfilLi
         publicaciones = Publicaciones.newInstance();
         newPublicacion = newPublicaciones.newInstance();
         maps = MapsFragment.newInstance();
-        mapsActivity = MapsActivity.newInstance();
-        mapa = Mapa.newInstance();
         editPerfils = editPerfil.newInstance();
 
         perfil.setListener(this::onPerfil);
@@ -83,10 +79,6 @@ public class MainActivity extends AppCompatActivity implements Perfil.OnPerfilLi
     protected void onResume() {
         super.onResume();
 
-        /*SharedPreferences preferences = getSharedPreferences("lasPublicaciones", MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.clear().apply();*/
-
     }
 
     @Override
@@ -100,6 +92,8 @@ public class MainActivity extends AppCompatActivity implements Perfil.OnPerfilLi
     public void onPublicaciones(int change) {
         if (change == 1) {
             showFragment(newPublicacion);
+        } else if (change == 3) {
+            showFragment(publicaciones);
         }
     }
 
