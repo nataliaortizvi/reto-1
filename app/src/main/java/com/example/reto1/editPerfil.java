@@ -17,7 +17,9 @@ public class editPerfil extends Fragment {
 
     private @NonNull FragmentEditPerfilBinding binding;
 
+    private int state;
 
+    private OnEditPerfilListener listener = null;
 
     public editPerfil() {
         // Required empty public constructor
@@ -35,11 +37,13 @@ public class editPerfil extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        state = 1;
         binding = FragmentEditPerfilBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
 
         binding.editarBtn.setOnClickListener(
                 v->{
+                    state = 0;
                     String nomRestaurante = binding.restauranteTxt.getText().toString();
                     String description = binding.descripTxt.getText().toString();
 
@@ -51,12 +55,24 @@ public class editPerfil extends Fragment {
                     SharedPreferences preferences = this.getActivity().getSharedPreferences("losRestaurantes", Context.MODE_PRIVATE);
                     preferences.edit().putString("res", json).apply();
 
-                    getActivity().onBackPressed();
+
+                    listener.onEditPerfil(state);
                 }
         );
 
 
         return view;
+    }
+
+    //COSAS DE PATRON OBSERVER (FRAGMENTO OBSERVADO)
+    //1. SUBSCRIPCION
+    public void setListener (editPerfil.OnEditPerfilListener listener) {
+        this.listener = listener;
+    }
+
+    //2. INTERFAZ
+    public interface OnEditPerfilListener {
+        void onEditPerfil(int change);
     }
 
     @Override

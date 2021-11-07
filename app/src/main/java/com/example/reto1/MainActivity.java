@@ -11,7 +11,8 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.reto1.databinding.ActivityMainBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class MainActivity extends AppCompatActivity implements Perfil.OnPerfilListener, Publicaciones.OnPublicacionesListener {
+public class MainActivity extends AppCompatActivity implements Perfil.OnPerfilListener, Publicaciones.OnPublicacionesListener,
+editPerfil.OnEditPerfilListener {
 
     private Perfil perfil;
     private Publicaciones publicaciones;
@@ -45,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements Perfil.OnPerfilLi
 
         perfil.setListener(this::onPerfil);
         publicaciones.setListener(this::onPublicaciones);
+        editPerfils.setListener(this::onEditPerfil);
         //newPublicacion.setListener(this::onNewPublicaciones);
         newPublicacion.setListener(publicaciones);
         showFragment(perfil);
@@ -98,6 +100,10 @@ public class MainActivity extends AppCompatActivity implements Perfil.OnPerfilLi
         }
     }
 
-
-
+    @Override
+    public void onEditPerfil(int change) {
+        if (change == 0) {
+            showFragment(perfil);
+        }
+    }
 }
