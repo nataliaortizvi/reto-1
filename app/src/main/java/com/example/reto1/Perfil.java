@@ -2,7 +2,10 @@ package com.example.reto1;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +16,8 @@ import com.example.reto1.databinding.FragmentPerfilBinding;
 import com.google.gson.Gson;
 
 public class Perfil extends Fragment {
+
+    //photoConst
 
     private int state;
 
@@ -49,6 +54,15 @@ public class Perfil extends Fragment {
             binding.descripTxt.setText(elRestaurante.getDescripRestaurante());
         }
 
+        SharedPreferences phPreferences = this.getActivity().getSharedPreferences("photoShared", Context.MODE_PRIVATE);
+        String thePhoto = phPreferences.getString("imageData", "NO_PHOTO");
+
+        if (!thePhoto.equals("NO_PHOTO")) {
+            byte[] b = Base64.decode(thePhoto, Base64.DEFAULT);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(b, 0, b.length);
+            binding.restaurantImg.setImageBitmap(bitmap);
+        }
+
 
         //click
         binding.editBtn.setOnClickListener(
@@ -65,6 +79,7 @@ public class Perfil extends Fragment {
     //COSAS DE PATRON OBSERVER (FRAGMENTO OBSERVADO)
     //1. SUBSCRIPCION
     public void setListener (OnPerfilListener listener) {
+
         this.listener = listener;
     }
 

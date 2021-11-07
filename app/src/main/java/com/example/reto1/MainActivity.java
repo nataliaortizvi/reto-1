@@ -12,7 +12,7 @@ import com.example.reto1.databinding.ActivityMainBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity implements Perfil.OnPerfilListener, Publicaciones.OnPublicacionesListener,
-editPerfil.OnEditPerfilListener {
+        editPerfil.OnEditPerfilListener, newPublicaciones.onNewUbiListener {
 
     private Perfil perfil;
     private Publicaciones publicaciones;
@@ -52,6 +52,7 @@ editPerfil.OnEditPerfilListener {
 
         //newPublicacion.setListener(this::onNewPublicaciones);
         newPublicacion.setListener(publicaciones);
+        newPublicacion.setListener(this::onNewUbi);
         showFragment(perfil);
 
 
@@ -83,7 +84,6 @@ editPerfil.OnEditPerfilListener {
         super.onResume();
 
         /*SharedPreferences preferences = getSharedPreferences("lasPublicaciones", MODE_PRIVATE);
-
         SharedPreferences.Editor editor = preferences.edit();
         editor.clear().apply();*/
 
@@ -107,6 +107,13 @@ editPerfil.OnEditPerfilListener {
     public void onEditPerfil(int change) {
         if (change == 0) {
             showFragment(perfil);
+        }
+    }
+
+    @Override
+    public void onNewUbi(int newUbi) {
+        if (newUbi == 2) {
+            showFragment(maps);
         }
     }
 }
