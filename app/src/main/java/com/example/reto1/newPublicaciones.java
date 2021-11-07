@@ -22,6 +22,8 @@ public class newPublicaciones extends Fragment {
 
     private EventAdapter adapter;
 
+    private int state;
+
     public newPublicaciones() {
         // Required empty public constructor
         adapter = new EventAdapter();
@@ -37,6 +39,7 @@ public class newPublicaciones extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        state = 0;
         // Inflate the layout for this fragment
         binding = FragmentNewPublicacionesBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
@@ -71,6 +74,12 @@ public class newPublicaciones extends Fragment {
                     }
 
 
+                }
+        );
+
+        binding.btnAddUbi.setOnClickListener(
+                v -> {
+                    state = 1;
                 }
         );
 

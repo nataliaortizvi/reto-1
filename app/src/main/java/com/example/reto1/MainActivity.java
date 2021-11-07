@@ -20,6 +20,7 @@ editPerfil.OnEditPerfilListener {
     private MapsFragment maps;
     private Mapa mapa;
     private editPerfil editPerfils;
+    private MapsActivity mapsActivity;
 
     private ActivityMainBinding binding;
 
@@ -41,12 +42,14 @@ editPerfil.OnEditPerfilListener {
         publicaciones = Publicaciones.newInstance();
         newPublicacion = newPublicaciones.newInstance();
         maps = MapsFragment.newInstance();
+        mapsActivity = MapsActivity.newInstance();
         mapa = Mapa.newInstance();
         editPerfils = editPerfil.newInstance();
 
         perfil.setListener(this::onPerfil);
         publicaciones.setListener(this::onPublicaciones);
         editPerfils.setListener(this::onEditPerfil);
+
         //newPublicacion.setListener(this::onNewPublicaciones);
         newPublicacion.setListener(publicaciones);
         showFragment(perfil);
