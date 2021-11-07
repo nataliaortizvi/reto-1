@@ -1,11 +1,11 @@
 package com.example.reto1;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -22,6 +22,8 @@ public class Publicaciones extends Fragment implements newPublicaciones.OnNewPub
     private OnPublicacionesListener listener = null;
 
     private EventAdapter adapter;
+
+    private SharedPreferences preferences;
 
 
     public Publicaciones() {
@@ -45,6 +47,8 @@ public class Publicaciones extends Fragment implements newPublicaciones.OnNewPub
         binding = FragmentPublicacionesBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
 
+        Log.e(">>>>","numero de arreglo:  "+ adapter.getItemCount());
+
         if(adapter.getItemCount() == 0){
             binding.noHayPubs.setVisibility(View.VISIBLE);
         }else{
@@ -61,12 +65,12 @@ public class Publicaciones extends Fragment implements newPublicaciones.OnNewPub
 
         publicacionesRecycler.setAdapter(adapter);
 
-        Log.e(">>>>","holis  "+ adapter.getItemCount());
 
+        //CLICK
         binding.btnCrearNew.setOnClickListener(
                 v->{
                     state = 1;
-                    Toast.makeText(getActivity(), "odio esto con mi vida", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getActivity(), "odio esto con mi vida", Toast.LENGTH_SHORT).show();
                     listener.onPublicaciones(state);
                 }
         );
@@ -88,18 +92,24 @@ public class Publicaciones extends Fragment implements newPublicaciones.OnNewPub
         this.listener = listener;
     }
 
-    //COSAS DE PATRON OBSERVER (FRAGMENTO OBSERVADORRR DE LAS NUEVAS PUBLICACIONES)
     @Override
     public void onNewPublicaciones(Event nuevo) {
+        Log.e(">>>>","LLEGOOOOOOOO: "+nuevo.getNombreEvent());
         adapter.addEvent(nuevo);
-        Log.e(">>>>","te odio:recibiendo publicacionesss "+adapter.getItemCount());
+
+        /*SharedPreferences preferences = this.getActivity().getSharedPreferences("lasPublicaciones", Context.MODE_PRIVATE);
+        String json = preferences.getString("pub", "NO_OBJ");
+        if(!json.equals("NO_OBJ")){
+            Gson gson = new Gson();
+            Event elEvento = gson.fromJson(json, Event.class);
+            adapter.addEvent(elEvento);
+        }*/
     }
 
     //2. INTERFAZ
     public interface OnPublicacionesListener {
         void onPublicaciones(int change);
     }
-
 
     @Override
     public void onDestroyView() {

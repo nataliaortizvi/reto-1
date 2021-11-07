@@ -1,26 +1,30 @@
 package com.example.reto1;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
 import com.example.reto1.databinding.FragmentNewPublicacionesBinding;
+import com.google.gson.Gson;
 
 public class newPublicaciones extends Fragment {
-
-    private Event evento;
-    private int state;
 
     private FragmentNewPublicacionesBinding binding;
 
     private OnNewPublicacionesListener listener = null;
 
+    private EventAdapter adapter;
+
     public newPublicaciones() {
         // Required empty public constructor
+        adapter = new EventAdapter();
     }
 
     public static newPublicaciones newInstance() {
@@ -39,11 +43,34 @@ public class newPublicaciones extends Fragment {
 
         binding.btnCrear.setOnClickListener(
                 v->{
+
                     String nombre = binding.nombreEventTxt.getText().toString();
                     String inicio = binding.horaInicioTxt.getText().toString();
                     String fin = binding.horaFinTxt.getText().toString();
-                    listener.onNewPublicaciones(new Event(nombre, inicio, fin));
-                    Log.e(">>>>","te odio:enviandooo");
+
+                    SharedPreferences preferences = this.getActivity().getSharedPreferences("losRestaurantes", Context.MODE_PRIVATE);
+                    String json = preferences.getString("res", "NO_OBJ");
+                    if(!json.equals("NO_OBJ")){
+                        Gson gson = new Gson();
+                        Restaurante elRestaurante = gson.fromJson(json, Restaurante.class);
+
+                        Event elEvento = new Event (nombre, elRestaurante.getNombreRestaurante(), inicio, fin);
+
+                        Gson gson1 = new Gson();
+                        String json1 = gson.toJson(elEvento);
+
+                        //LocalStorage = sharedPreferences
+                        SharedPreferences preferences1 = this.getActivity().getSharedPreferences("lasPublicaciones", Context.MODE_PRIVATE);
+                        preferences1.edit().putString("pub", json1).apply();
+
+                        listener.onNewPublicaciones(elEvento);
+                        Toast.makeText(getActivity(), "ir a publicaciones", Toast.LENGTH_SHORT).show();
+
+                        Log.e(">>>>","SE FUEEEE");
+                        //getActivity().onBackPressed();
+                    }
+
+
                 }
         );
 

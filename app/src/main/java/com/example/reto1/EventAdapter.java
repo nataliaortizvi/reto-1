@@ -1,6 +1,5 @@
 package com.example.reto1;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,16 +32,17 @@ public class EventAdapter extends RecyclerView.Adapter<EventView> {
     public void onBindViewHolder(@NonNull EventView holder, int position) {
         Event event = events.get(position);
         holder.getTxtNombreEvento().setText(event.getNombreEvent());
+        holder.getTxtRestaurante().setText(event.getNombreRestaurant());
         holder.getTxtHoraInicio().setText(event.getHoraInicio());
         holder.getTxtHoraFin().setText(event.getHoraFin());
-
-        Log.e(">>>>","1: "+ event + "2: "+ event.getNombreEvent() +"3: "+ events.size());
 
     }
 
     public void addEvent(Event row) {
         events.add(row);
     }
+
+
 
     @Override
     public int getItemCount() {

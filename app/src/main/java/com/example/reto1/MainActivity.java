@@ -1,7 +1,6 @@
 package com.example.reto1;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,8 +11,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.reto1.databinding.ActivityMainBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class MainActivity extends AppCompatActivity implements Perfil.OnPerfilListener, Publicaciones.OnPublicacionesListener,
-newPublicaciones.OnNewPublicacionesListener{
+public class MainActivity extends AppCompatActivity implements Perfil.OnPerfilListener, Publicaciones.OnPublicacionesListener {
 
     private Perfil perfil;
     private Publicaciones publicaciones;
@@ -65,7 +63,6 @@ newPublicaciones.OnNewPublicacionesListener{
 
             return true;
         });
-
     }
 
     public void showFragment (Fragment fragment) {
@@ -74,6 +71,17 @@ newPublicaciones.OnNewPublicacionesListener{
 
         transaction.replace(R.id.fragmentContainer, fragment);
         transaction.commit();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        /*SharedPreferences preferences = getSharedPreferences("lasPublicaciones", MODE_PRIVATE);
+
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.clear().apply();*/
+
     }
 
     @Override
@@ -91,9 +99,5 @@ newPublicaciones.OnNewPublicacionesListener{
     }
 
 
-    @Override
-    public void onNewPublicaciones(Event nuevo) {
-        Log.e(">>>>","te odio:recibiendo mainnnn");
 
-    }
 }
