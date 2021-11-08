@@ -63,6 +63,8 @@ public class Perfil extends Fragment {
             byte[] b = Base64.decode(thePhoto, Base64.DEFAULT);
             Bitmap bitmap = BitmapFactory.decodeByteArray(b, 0, b.length);
             binding.restaurantImg.setImageBitmap(bitmap);
+            binding.txtNingun.setVisibility(View.GONE);
+            binding.imgCamara.setVisibility(View.GONE);
         }
 
 

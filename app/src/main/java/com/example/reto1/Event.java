@@ -9,6 +9,7 @@ public class Event {
     private String nombreRestaurant;
     private String horaInicio;
     private String horaFin;
+    private String direction;
     private Bitmap imageUrl;
 
     public Event() {}

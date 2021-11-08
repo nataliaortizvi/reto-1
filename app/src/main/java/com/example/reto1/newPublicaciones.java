@@ -94,6 +94,7 @@ public class newPublicaciones extends Fragment implements View.OnClickListener {
                 String inicio = binding.horaInicioTxt.getText().toString();
                 String fin = binding.horaFinTxt.getText().toString();
 
+
                 SharedPreferences preferences = this.getActivity().getSharedPreferences("losRestaurantes", MODE_PRIVATE);
                 String json = preferences.getString("res", "NO_OBJ");
                 if(!json.equals("NO_OBJ")){
