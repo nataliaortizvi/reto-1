@@ -14,12 +14,21 @@ public class Event {
 
     public Event() {}
 
-    public Event(String nombreEvent, String nombreRestaurant, String horaInicio, String horaFin, Bitmap imageUrl) {
+    public Event(String nombreEvent, String nombreRestaurant, String horaInicio, String horaFin, String direction, Bitmap imageUrl) {
         this.nombreEvent = nombreEvent;
         this.nombreRestaurant = nombreRestaurant;
         this.horaInicio = horaInicio;
         this.horaFin = horaFin;
+        this.direction = direction;
         this.imageUrl = imageUrl;
+    }
+
+    public String getDirection() {
+        return direction;
+    }
+
+    public void setDirection(String direction) {
+        this.direction = direction;
     }
 
     public Bitmap getImageUrl() {

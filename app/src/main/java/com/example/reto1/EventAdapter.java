@@ -49,6 +49,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventView> {
         holder.getTxtHoraInicio().setText(event.getHoraInicio());
         holder.getTxtHoraFin().setText(event.getHoraFin());
         holder.getImgFoto().setImageBitmap(event.getImageUrl());
+        holder.getDirection().setText(event.getDirection());
     }
 
     public void addEvent(Event row) {

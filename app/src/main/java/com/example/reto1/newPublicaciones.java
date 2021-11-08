@@ -109,8 +109,12 @@ public class newPublicaciones extends Fragment implements View.OnClickListener {
                         bitmap = BitmapFactory.decodeByteArray(b, 0, b.length);
                     }
 
+                    //Recibe la imagen del sharedPreference
+                    SharedPreferences dirPreferences = getActivity().getSharedPreferences("lasPublicaciones", MODE_PRIVATE);
+                    String theDir =dirPreferences.getString("dir", "NO_OBJ");
+
                     //Crea el objeto Evento
-                    Event elEvento = new Event (nombre, elRestaurante.getNombreRestaurante(), inicio, fin, bitmap);
+                    Event elEvento = new Event (nombre, elRestaurante.getNombreRestaurante(), inicio, fin, theDir,  bitmap);
 
                     Gson gson1 = new Gson();
                     String json1 = gson.toJson(elEvento);

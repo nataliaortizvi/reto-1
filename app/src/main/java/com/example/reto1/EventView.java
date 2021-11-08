@@ -11,7 +11,7 @@ public class EventView extends RecyclerView.ViewHolder {
 
     //views
     private ImageView imgFoto;
-    private TextView txtNombreEvento, txtRestaurante, txtHoraInicio, txtHoraFin;
+    private TextView txtNombreEvento, txtRestaurante, txtHoraInicio, txtHoraFin, direction;
     private Button btnMap;
 
     public EventView(View itemView) {
@@ -23,6 +23,11 @@ public class EventView extends RecyclerView.ViewHolder {
         txtHoraInicio = itemView.findViewById(R.id.txtHoraInicio);
         txtHoraFin = itemView.findViewById(R.id.txtHoraFin);
         btnMap = itemView.findViewById(R.id.btnMap);
+        direction = itemView.findViewById(R.id.direction);
+    }
+
+    public TextView getDirection() {
+        return direction;
     }
 
     public ImageView getImgFoto() {

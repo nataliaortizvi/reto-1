@@ -117,7 +117,7 @@ public class MapsFragment extends Fragment implements LocationListener, GoogleMa
                  v -> {
                      Toast.makeText(getActivity(), address+"", Toast.LENGTH_LONG).show();
                      SharedPreferences preferences1 = this.getActivity().getSharedPreferences("lasPublicaciones", MODE_PRIVATE);
-                     preferences1.edit().putString("pub", address).apply();
+                     preferences1.edit().putString("dir", address).apply();
 
                  }
          );
@@ -150,6 +150,8 @@ public class MapsFragment extends Fragment implements LocationListener, GoogleMa
     public void onProviderDisabled(@NonNull String provider) {
 
     }
+
+
 
     @Override
     public void onMapClick(@NonNull LatLng latLng) {
