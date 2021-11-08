@@ -12,7 +12,7 @@ import com.example.reto1.databinding.ActivityMainBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity implements Perfil.OnPerfilListener, Publicaciones.OnPublicacionesListener,
-        editPerfil.OnEditPerfilListener, newPublicaciones.onNewUbiListener {
+        editPerfil.OnEditPerfilListener, newPublicaciones.onNewUbiListener, MapsFragment.onDirectionMapListener {
 
     private Perfil perfil;
     private Publicaciones publicaciones;
@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity implements Perfil.OnPerfilLi
         perfil.setListener(this::onPerfil);
         publicaciones.setListener(this::onPublicaciones);
         editPerfils.setListener(this::onEditPerfil);
+        maps.setListener(this::onDirectionMap);
 
         //newPublicacion.setListener(this::onNewPublicaciones);
         newPublicacion.setListener(publicaciones);
@@ -108,6 +109,13 @@ public class MainActivity extends AppCompatActivity implements Perfil.OnPerfilLi
     public void onNewUbi(int newUbi) {
         if (newUbi == 2) {
             showFragment(maps);
+        }
+    }
+
+    @Override
+    public void onDirectionMap(int state) {
+        if (state == 1) {
+            showFragment(newPublicacion);
         }
     }
 }

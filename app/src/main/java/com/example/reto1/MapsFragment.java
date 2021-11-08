@@ -45,6 +45,9 @@ public class MapsFragment extends Fragment implements LocationListener, GoogleMa
     private Geocoder geocoder;
     private List<Address> addresses;
     private String address;
+    private int state = 0;
+
+    private onDirectionMapListener listener;
 
     private FragmentMapsBinding binding;
 
@@ -115,9 +118,11 @@ public class MapsFragment extends Fragment implements LocationListener, GoogleMa
 
          binding.btnContMaps.setOnClickListener(
                  v -> {
+                     state = 1;
                      Toast.makeText(getActivity(), address+"", Toast.LENGTH_LONG).show();
                      SharedPreferences preferences1 = this.getActivity().getSharedPreferences("lasPublicaciones", MODE_PRIVATE);
                      preferences1.edit().putString("dir", address).apply();
+                     listener.onDirectionMap(state);
 
                  }
          );
@@ -151,7 +156,13 @@ public class MapsFragment extends Fragment implements LocationListener, GoogleMa
 
     }
 
+    public void setListener(onDirectionMapListener listener) {
+        this.listener = listener;
+    }
 
+    public interface onDirectionMapListener {
+        void  onDirectionMap (int state);
+    }
 
     @Override
     public void onMapClick(@NonNull LatLng latLng) {
